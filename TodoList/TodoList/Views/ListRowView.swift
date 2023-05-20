@@ -12,21 +12,38 @@ struct ListRowView: View {
     let item:ItemModel
     
     var body: some View {
-        HStack{
+        HStack(spacing: 15){
             if(item.isCompleted){
                 activeCircleSymbol()
-                Text(item.title)
-                    .font(.headline)
-                    .foregroundColor(.gray)
-            }
-            else{
-                    inActiveCircleSymbol()
+                VStack(alignment: .leading){
                     Text(item.title)
                         .font(.headline)
+                        .foregroundColor(.gray)
+                    Text(item.description)
+                        .font(.callout)
+                        .foregroundColor(.gray)
+                    
+                }
+                
+            }
+            else{
+                inactiveCircleSymbol()
+                VStack(alignment: .leading){
+                    Text(item.title)
+                        .font(.headline)
+                        .foregroundColor(.accentColor)
+                    Text(item.description)
+                        .font(.callout)
+                        .foregroundColor(.gray)
+                }
+                
                         
             }
            
             Spacer()
+            Image(systemName: "info.circle")
+                .foregroundColor(.accentColor)
+                .padding()
                             
         }
     }
@@ -47,7 +64,7 @@ struct activeCircleSymbol: View{
     }
 }
 
-struct inActiveCircleSymbol: View{
+struct inactiveCircleSymbol: View{
     var body: some View{
         Circle()
             .stroke(Color.accentColor,style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .miter))
@@ -58,8 +75,8 @@ struct inActiveCircleSymbol: View{
 
 struct ListRowView_Previews: PreviewProvider {
     
-    static var item1  = ItemModel(title: "First Item", isCompleted: false)
-    static var item2  = ItemModel(title: "Second Item", isCompleted: true)
+    static var item1  = ItemModel(title: "First Item", description: "This is a desc", isCompleted: false)
+    static var item2  = ItemModel(title: "Second Item", description: "This is a desc", isCompleted: true)
     
     
 
